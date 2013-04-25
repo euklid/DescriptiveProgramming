@@ -24,4 +24,8 @@ import Prelude
 
 gen_quer :: Integer -> Bool -> Integer -> Integer
 gen_quer a False b = if b<10^a then b else s + gen_quer a False t where (s,t)=(b `mod` 10^a, b `div` 10^a)
-gen_quer a True b = undefined
+gen_quer a True b = abs ( gen_quer_helper a b)
+                  
+gen_quer_helper :: Integer -> Integer -> Integer
+gen_quer_helper a b | (abs b)<10^a = abs b
+                    | otherwise = -(gen_quer_helper a s) + gen_quer_helper a t where (s,t)=(b `div` 10^a, b `mod` 10^a)
